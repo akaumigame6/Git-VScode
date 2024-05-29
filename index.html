@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Gitの導入とGitHubを使ったコードの共有</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div id="page_top"><a href="#"></a></div>
+    <h1>Gitの導入とGitHubを使ったコードの共有</h1>
+
+    <h2>やっていく内容</h2>
+    <ul class="list-design">
+        <li><a href="#chapter1">gitをダウンロードする前に</a></li>
+        <li><a href="#chapter2">gitのダウンロード</a></li>
+        <li><a href="#chapter3">インストール後の設定</a></li>
+        <li><a href="#chapter4">GitHubについて簡単に知ろう</a></li>
+        <li><a href="#chapter5">コードを共有してみよう</a></li>
+        <li><a href="#chapter6">終わりに</a></li>
+    </ul>
+    <h2><a name="chapter1">gitをダウンロードする前に</a></h2>
+        <p><h3>前提条件</h3>
+            この記事はWindowsOSのPCを使って進めていきます。<br>
+            また、gitのインストール後にVisual Studio CodeとGitHubと連携させて利用するための設定も行います。<br>
+            そのため、Visual Studio CodeのダウンロードとGitHubのアカウントを持っていることが前提条件です。<br>
+            Visual Studio Codeのダウンロードは<a class="url" href="https://code.visualstudio.com/">公式サイト</a>で行ってください。<br>
+            アカウントを持っていない場合は<a class="url" href="https://github.co.jp/">GitHubのサイト</a>でアカウント作成を行ってください。
+        </p>
+        <p><h3>gitがインストールされているか確認</h3>
+            まずコマンドプロンプトで<str>git -v</str>を実行してPCにgitが入っているか確認。
+            入っていたら<str2>git version 入っているgitのバージョン</str2>と出力されます。
+        </p>
+            
+        <p>入っていたら設定を確認しつつとばしてOK<br>   
+            入っていなかったら<str2>'git -v' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチ ファイルとして認識されていません。</str2>と出力されます。
+        </p>
+            <h3>GitHubのnameをメモ帳にコピーしておく</h3>
+        <p>GitHubの<a class="url" href="https://github.com/settings/profile">プロフィール設定のページ</a>(https://github.com/settings/profile)で自分のPublic profileの「Name」	を確認してメモ帳などのテキストエディタにコピーしておく。<br>
+            <h3>コミット用のメールアドレスを確認</h3><a class="url" href="https://github.com/settings/emails">メール設定のページ</a>(https://github.com/settings/emails)にて「Keep my email addresses private」と「Block command line pushes that expose my email」の項目にチェック☑をいれておく。
+            チェックを入れると「Keep my email addresses private」の下にコミット用のメールアドレス（....@users.noreply.github.com）が確認できるためこれもまたメモ帳などのテキストエディタにコピーしておく。
+        </p>
+    <h2><a name="chapter2">gitのダウンロード</a></h2>
+        <p><h3>Gitのインストーラをダウンロード</h3>
+            Gitの公式サイトの<a class="url" href="https://git-scm.com/download/win">Windows用のダウンロードサイト</a>(https://git-scm.com/download/win)にアクセス。
+            自分のPCのbit数にあった「Standalone Installer」の欄にあるSetupをクリックして最新版のGitのインストーラをダウンロード
+        </p>
+        <div class="box1">
+            <p>ここからはGit-2.45.0-64-bit.exeを参考に進めていきますbit数やバージョンが違う場合各自で確認しながら進めてください。
+            </p>
+        </div>
+        <p>
+            ダウンロードしたGit-2.45.0-64-bit.exeをダブルクリック。Gitに適用されているGPLライセンスについて確認。<br>
+            <img src="images/1_GPNライセンス.png" width="405px" height="360px"alt="ライセンスについて書かれた画面"><br>
+            参考になるサイトはこちら。<br>
+            <a class="url" href="https://www.tohoho-web.com/ex/license.html#gpl-license">とほほのライセンス入門</a>(https://www.tohoho-web.com/ex/license.html#gpl-license)<br>
+            <a class="url" href="https://the-simple.jp/gpl-commentary-basic-concepts-and-usage-of-the-gnu-general-public-license">GPLの解説：GNU General Public Licenseの基本概念と活用法</a>
+            (https://the-simple.jp/gpl-commentary-basic-concepts-and-usage-of-the-gnu-general-public-license)
+        </p>
+        <div class="box2"><p>
+            簡単にまとめるとGPLライセンスのものは<br>無断で利用・改造・再配布可能ですが、GPLのモジュールをライブラリとして呼び出すだけでも呼び出したソースコードもGPLライセンスになって成果物の配布先に開発コードを公開する必要が出てくるよ。気をつけようね。
+        </p></div>
+
+        <p>
+            スクリーンショットを確認しつつ設定を進めていく（それぞれの設定の意味は各自で調べてね）<br>
+            スクリーンショットがない箇所はそのままでNextを押してOK<br>
+            <img src="images/3_コンポーネント.png" width="405px" height="360px"alt="コンポーネントについて書かれた画面">
+            <img src="images/5_テキストエディタ.png" width="405px" height="360px"alt="テキストエディタについて書かれた画面"><br>
+            <img src="images/6_初期ブランチの名前.png" width="405px" height="360px"alt="初期ブランチの名前について書かれた画面">
+            <img src="images/7_環境変数.png" width="405px" height="360px"alt="環境変数について書かれた画面"><br>
+            <img src="images/8_SSHクライアント.png" width="405px" height="360px"alt="SSHクライアントについて書かれた画面">
+            <img src="images/9_SSL-TLS.png" width="405px" height="360px"alt="SSL-TLSについて書かれた画面"><br>
+            <img src="images/10_改行コード.png" width="405px" height="360px"alt="改行コードについて書かれた画面">
+            <img src="images/11_ターミナルエミュレータ.png" width="405px" height="360px"alt="ターミナルエミュレータについて書かれた画面"><br>
+            <img src="images/12_git_pull.png" width="405px" height="360px"alt="git_pullについて書かれた画面">
+            <img src="images/13_資格情報マネージャ.png" width="405px" height="360px"alt="資格情報マネージャについて書かれた画面"><br>
+            <img src="images/14_追加オプション.png" width="405px" height="360px"alt="追加オプションについて書かれた画面">
+            <img src="images/15_実験的オプション.png" width="405px" height="360px"alt="実験的オプションについて書かれた画面"><br>
+            <br>最後にInstallのボタンを押すことでgitのインスト―ル完了！
+        </p>
+    <h2><a name="chapter3">インストール後の設定</a></h2>
+        <p>
+            GitHubと連携させて利用するための設定を行うよ。<br>
+            スタートボタン（画面下にあるwindowsマークのボタン）を右クリック「ターミナル（管理者）」を起動してターミナルのタブを「コマンドプロンプト」に切り替え。
+        </p>
+        <h3>gitのグローバル設定の確認</h3>
+        <p>
+            gitの「グローバル設定」を確認するよ。<br>
+            コマンドプロンプトに<str>git config --global -l</str>を入力して実行。ダウンロード直後だと
+        </p>
+        <div class="box3"><p>
+            ”C:\Users\xxxx>git config --global -l<br>
+            core.editor="C:\Users\xxxx\AppData\Local\Programs\Microsoft VS Code\bin\code" --wait”
+        </p></div>
+        <p>
+            と出力される。（xxxxの所は自分のユーザー名に読み替えてください）<br>
+            インストール中に選択したデフォルトエディタ設定に選択したエディタが設定されているのを確認。(スクリーンショットを参考にしたならVScodeになっています。)
+        </p>
+        <h3>gitのシステム設定の確認</h3>
+        <p>
+            次にgitの「システム設定」を確認するよ。<br>
+            コマンドプロンプトに<str>git config --system -l</str>を入力して実行。そうすると、
+        </p>
+        <div class="box3"><p>
+            C:\Users\xxxx>git config --system -l<br>
+            diff.astextplain.textconv=astextplain<br>
+            filter.lfs.clean=git-lfs clean -- %f<br>
+            filter.lfs.smudge=git-lfs smudge -- %f<br>
+            filter.lfs.process=git-lfs filter-process<br>
+            filter.lfs.required=true<br>
+            http.sslbackend=openssl<br>
+            http.sslcainfo=C:/Program Files/Git/mingw64/etc/ssl/certs/ca-bundle.crt<br>
+            core.autocrlf=input<br>
+            core.fscache=true<br>
+            core.symlinks=false<br>
+            pull.rebase=false<br>
+            credential.helper=manager<br>
+            credential.https://dev.azure.com.usehttppath=true<br>
+            init.defaultbranch=main<br>
+        </p></div>
+        <p>
+            ここで、<str2>core.autocrlf=input</str2>となっているか確認。<br>
+            もしなっていなかったら、<str>git config --system core.autocrlf input</str>を実行する。
+        </p>
+        <div class="box1"><p>
+            ここで管理者権限で起動していないと失敗してしまうので注意。
+        </p></div>
+        <div class="box2"><p>
+            このようにコマンドを実行することで設定を変更することができます。<br>
+            また、グローバル設定、システム設定のほかに必要に応じてローカル設定も追加できます。これによってGitHubアカウントのファイルごとの使い分けができるけど詳しいことは各自で調べてください。
+        </p></div>
+        <h3>gitをGitHubと連携させるための設定の追加</h3>
+        <p>
+            gitとGitHubを連携させるために次のコマンドを先ほど確認したユーザーネームとコミット用メールアドレスに書き換えて実行。
+        </p>
+        <div class="box3"><p>
+            git config --global user.name "Name"<br>
+            git config --global user.email "12345678+GitHubAccountName@users.noreply.github.com"<br>
+            git config --global core.quotepath false
+        </p></div>
+        <p>もしGitHubのユーザーネームが"Test"コミット用メールアドレスが"12345678+Test@users.noreply.github.com"だったら
+            <str>
+                git config --global user.name "Test"<br>
+                git config --global user.email "12345678+Test@users.noreply.github.com"<br>
+                git config --global core.quotepath false
+            </str>
+            <br>と入力して実行。
+            <br>最後に<str>git config --global -l</str>を入力して、
+        </p>
+        <div class="box3"><p>
+            core.editor="C:\Users\kyuri\AppData\Local\Programs\Microsoft VS Code\bin\code" --wait<br>
+            core.quotepath=false<br>
+            user.name=Name<br>
+            user.email=12345678+GitHubAccountName@users.noreply.github.com
+        </p></div>
+        <p>設定が追加できていることを確認出来たらgitの最低限の設定は終了ですお疲れさまでした。</p>
+    <h2><a name="chapter4">GitHubについて簡単に知ろう</a></h2>
+        <h3>そもそもGitHubとはなんぞや</h3>
+        <p>
+            GitHubとはコードを共有するためのWEBサービス。(USBなどでも共有することはできるけどバージョン管理やそもそも共有するのがめんどくさい。)<br>
+            GitHubを活用するとほかの人と共有しながらコードを書いたり、バージョンを簡単に管理して前のバージョンに戻ることもできる。
+        </p>
+        <h3>GitHubのよく使う単語の簡単説明</h3>
+        <p>
+            <strong>リポジトリ(repository)</strong>…プロジェクトを構成するファイルやフォルダ、その変更履歴を保管しておく場所<br>
+            <strong>ローカルリポジトリ</strong>…今自分が作業しているPCの中に作成、設置するリポジトリ。<br>
+            <strong>リモートリポジトリ</strong>…GitHubなどの外部に作成、設置リポジトリ。ローカルリポジトリを使用して操作する。<br>
+            <strong>コミット</strong>…変更内容をリポジトリに記録すること。<br>
+            <strong>プッシュ(push)</strong>…ローカルリポジトリの変更内容をリモートリポジトリにアップロードすること。<br>
+            <strong>プル(pull)</strong>…リモートリポジトリの変更内容をローカルリポジトリにダウンロードすること。<br>
+        </p>
+    <h2><a name="chapter5">コードを共有してみよう</a></h2>
+        <h3>ローカルからリモートリポジトリの発行</h3>
+        <p>
+            まずはローカルリポジトリを作成してリモートリポジトリにアップロードする手順を説明する。<br>
+            フォルダを新規作成する。ここでは<str>git_test</str>というフォルダを作成する。<br>
+            git_testを作成したらVisual Studio Codeを起動して<str>git_test</str>を開く。<br>
+            GitHubは何もない状態だとローカルからリモートリポジトリを作成することができないので、README.mdを作成し、適当な文章を書いて保存する。<br>
+            Visual Studio Codeのウィンドウの左側に並ぶアイコンから「ソース管理」を選択。<br>
+            「GitHubに公開」のボタンをクリックしてGitHubに公開する。<br>
+            <img src="images/16_ソース管理_編集.png" width="600px" height="200px"><br>
+            サインインの許可を求められるダイアログが表示されるので「許可」を押したのち、GitHubにサインインする。<br>
+            Visual Studio Codeを開くか聞かれるので「isual Studio Codeを開く」を押す。<br>
+            拡張機能がURLを開くことを許可するか聞かれるので「開く」を押す。<br>
+            その後上部に表示されるドロップボックスを確認してOKを押していく<br>
+            パブリック(公開)にするかプライベートにするか(非公開)の確認<br>
+            <img src="images/17_パブリック-プライベート.png" width="600px" height="200px"><br>
+            どのファイルをコミットするかの確認<br>
+            <img src="images/18_プッシュリポジトリ.png" width="600px" height="200px"><br>
+            次のダイアログが表示されたら「Sign in with your brower」を選択する。<br>
+            <img src="images/19_github.png" width="325px" height="285px"><br>
+            GitHubのサインインが要求されたらサインインする。<br>
+            以上でVisual Studio CodeとGitHubの連携が完了してリモートリポジトリが作成される。<br>
+            自分のページに飛んで実際に作成されているか確認。<br>
+        </p>
+        <h3>変更内容のコミットとプル</h3>
+        <p>
+            先ほど作成したREADME.mdを編集して変更内容をコミットしてプルする手順を説明する。<br>
+            まずはREADME.mdに追加でテキストを追加して保存。<br>
+            その後「ソース管理」を選択。ソース管理のパネルでREADME.mdの横にある+をクリック。<br>
+            <img src="images/20_ステージング.png" width="600px" height="180px"><br>
+            これによって変更がステージング(どのファイルをコミットするのか選択)された。<br>
+            次はコミットするために「コミットメッセージ」(空欄にできない)を入力して「コミット」をクリック。<br>
+            <img src="images/21_コミット.png" width="600px" height="180px"><br>
+            これによって変更内容がコミットされた。<br>
+            「変更の同期」をクリックしてプルする。<br>
+            <img src="images/22_プル.png" width="600px" height="180px"><br>
+            次のダイアログが表示されたら「」を選択する。<br>
+            <img src="images/23_確認.png" width="520px" height="140px"><br>
+            これで変更内容がリモートリポジトリにプルされた。<br>
+        </p>
+    <h2><a name="chapter6">終わりに</a></h2>
+        <p>
+            長々と続きましたが以上でgitの導入とGitHubを使ったコードの共有の手順の説明は終了です。<br>
+            お疲れさまでした！<br>
+            これでローカルから簡単にVisual Studio Codeを使用してリモートにデータを保存できるようになりました。<br>
+            ここで説明したこと以外にも「リモートリポジトリの削除」、「コマンドラインからの操作方法」<br>
+            「ブランチの作成」、「プルリクエストの作成」などGitHubの機能はまだまだたくさんあるので<br>
+            希望があればまたページを作成しようと思います。<br>
+            最後に改めて本当にお疲れさまでした！！！
+        </p>
+  </body>
